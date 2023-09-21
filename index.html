@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .continer {
+            margin-top: 10%;
+            background: #000000e0;
+            color: white;
+            padding: 25px 28px;
+            border-radius: 5px;
+        }
+
+        #output {
+            width: 200px;
+            height: 33px;
+            background: #646464;
+            border-radius: 5px;
+            margin-block: 10px;
+            text-align: center;
+            padding-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        #length {
+            width: 75px;
+            margin-left: 5px;
+            margin-bottom: 5px;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #btn {
+            margin: 20px;
+            cursor: pointer;
+            background: #3499ca;
+            padding: 12px 32px;
+            border: none;
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="continer">
+        <div title="Copy!" style="cursor: pointer;">
+            <p id="output"></p>
+        </div>
+        <label for="number">Password length</label><input type="number" id="length"><br>
+        <input type="checkbox" id="number"><label for="number">Number</label><br>
+        <input type="checkbox" id="uppercase"><label for="uppercase">Uppercase</label><br>
+        <input type="checkbox" id="lowercase"><label for="lowercase">Lowercase</label><br>
+        <input type="checkbox" id="special"><label for="special">Special Character</label><br>
+        <div class="button">
+            <button id="btn" onclick="myFunction()">Generate</button>
+        </div>
+
+    </div>
+
+
+    <script>
+        function myFunction() {
+            document.getElementById('output').innerHTML = "";
+            let length = document.getElementById("length").value;
+            let number = document.getElementById("number");
+            let uppercase = document.getElementById("uppercase");
+            let lowercase = document.getElementById("lowercase");
+            let special = document.getElementById("special");
+
+            const number_arr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+            const Uppercase_arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            const lowercase_arr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+            const special_arr = ["*", "!", "@", "#", "$", "%", "&", "_", "-", "+", "=", "/", "?", "|"];
+
+
+            if (number.checked != true && uppercase.checked != true && lowercase.checked != true && special.checked != true) {
+                alert("please select at least one sction");
+                return;
+            }
+
+            if(length == ""){
+                alert("please give the password length");
+                return;
+            }
+
+            if (length > 15) {
+                alert("Password length is bigger the 15 characters");
+                return;
+            }
+
+
+            const result_arr = [];
+            for (let i = 0; i <= length-1; i++) {
+
+                let num_ran = Math.floor(Math.random(10) * 10);
+                let uppr_ran = Math.floor(Math.random(26) * 26);
+                let lowr_ran = Math.floor(Math.random(26) * 26);
+                let spcl_ran = Math.floor(Math.random(14) * 14);
+
+                if (number.checked == true) {
+                    result_arr.push(number_arr[num_ran]);
+                }
+                if (uppercase.checked == true) {
+                    result_arr.push(Uppercase_arr[uppr_ran]);
+                }
+                if (lowercase.checked == true) {
+                    result_arr.push(lowercase_arr[lowr_ran]);
+                }
+                if (special.checked == true) {
+                    result_arr.push(special_arr[spcl_ran]);
+                }
+                document.getElementById('output').innerHTML += 
+                result_arr[Math.floor(Math.random(result_arr.length) * result_arr.length)];
+            }
+           
+        }
+
+        let a = document.getElementById("output");
+        a.addEventListener("click", ()=>{
+            let copy = a.innerText;
+            navigator.clipboard.writeText(copy);
+        })
+
+    </script>
+</body>
+
+</html>
